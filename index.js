@@ -1,29 +1,20 @@
-const express = require('express');
-//const dgram = require('dgram');
+const express = require("express");
+const socket = require("socket.io");
 
-const PORT = process.env.PORT || 3000
-// ...
-
+// App setup
+const PORT = 5000;
 const app = express();
+const server = app.listen(PORT, function () {
+  console.log(`Listening on port ${PORT}`);
+  console.log(`http://localhost:${PORT}`);
+});
 
-// ... filter stack ...
+// Static files
+app.use(express.static("public"));
 
-// const socket = dgram.createSocket('udp4');
+// Socket setup
+const io = socket(server);
 
-// socket.on('listening', () => {
-//   let addr = socket.address();
-//   console.log(`Listening for UDP packets at ${addr.address}:${addr.port}`);
-// });
-
-// socket.on('error', (err) => {
-//   console.error(`UDP error: ${err.stack}`);
-// });
-
-// socket.on('message', (msg, rinfo) => {
-//   console.log('Recieved UDP message');
-// });
-
-app.set('port', PORT); // listen for TCP with Express
-//socket.bind(PORT);     // listen for UDP with dgram
-
-console.log('app is running');
+io.on("connection", function (socket) {
+  console.log("Made socket connection");
+});
