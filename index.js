@@ -25,3 +25,5 @@ const app = express();
 
 app.set('port', PORT); // listen for TCP with Express
 //socket.bind(PORT);     // listen for UDP with dgram
+
+console.log('app is running');
